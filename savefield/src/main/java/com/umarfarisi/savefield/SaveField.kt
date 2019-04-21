@@ -1,8 +1,12 @@
 package com.umarfarisi.savefield
 
 import com.umarfarisi.savefield.storage.FieldStorage
+import com.umarfarisi.savefield.storage.FieldStorageUtils
 
-class SaveField(private val storageName: String, val fieldStorage: FieldStorage) {
+class SaveField @JvmOverloads constructor(
+    private val storageName: String,
+    val fieldStorage: FieldStorage = FieldStorageUtils.getDefaultFS()
+) {
 
     private val fieldHolder: MutableMap<String, Any> = mutableMapOf()
 
@@ -21,8 +25,8 @@ class SaveField(private val storageName: String, val fieldStorage: FieldStorage)
         fieldHolder.clear()
     }
 
-    fun clearDataAndGetFields(isNeedToRestore: Boolean): Getter {
-        val fields: Map<String, Any> = if (isNeedToRestore) fieldStorage.getAll(storageName) else emptyMap()
+    fun clearDataAndGetFields(isSavedValueValid: Boolean): Getter {
+        val fields: Map<String, Any> = if (isSavedValueValid) fieldStorage.getAll(storageName) else emptyMap()
         clear()
         return Getter(fields)
     }

@@ -1,6 +1,6 @@
 package com.umarfarisi.savefield.storage
 
-import android.content.Context
+import java.lang.IllegalStateException
 
 class FieldStorageUtils {
 
@@ -10,12 +10,9 @@ class FieldStorageUtils {
 
         private val instances: FieldStorageUtils = FieldStorageUtils()
 
-        fun getDefaultFS(context: Context): FieldStorage {
-            return instances.defaultFieldStorage ?: let {
-                val fs = FieldStorageSharedPreference(context.applicationContext)
-                instances.defaultFieldStorage = fs
-                fs
-            }
+        fun getDefaultFS(): FieldStorage {
+            return instances.defaultFieldStorage
+                ?: throw IllegalStateException("Need to set defaultFS first by calling FieldStorageUtils.setDefaultFS")
         }
 
         fun setDefaultFS(fieldStorage: FieldStorage) {

@@ -1,15 +1,14 @@
 package com.umarfarisi.savefieldtest
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.umarfarisi.savefield.SaveField
-import com.umarfarisi.savefield.storage.FieldStorageUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val saveField: SaveField by lazy { SaveField(javaClass.simpleName, FieldStorageUtils.getDefaultFS(this)) }
+    val saveField: SaveField = SaveField(javaClass.simpleName)
 
     var data: String? = null
 
