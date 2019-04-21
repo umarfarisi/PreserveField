@@ -12,7 +12,7 @@ class FieldStorageUtils {
 
         fun getDefaultFS(context: Context): FieldStorage {
             return instances.defaultFieldStorage ?: let {
-                val fs = FieldStorageSharedPreference(context)
+                val fs = FieldStorageSharedPreference(context.applicationContext)
                 instances.defaultFieldStorage = fs
                 fs
             }
