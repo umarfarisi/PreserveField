@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val preserveField: PreserveField = PreserveField(javaClass.simpleName)
+    val preserveField: PreserveField = PreserveField()
 
     var data: String? = null
 

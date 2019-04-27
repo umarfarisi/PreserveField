@@ -8,48 +8,50 @@ import java.lang.IllegalStateException
 /**
  * A [FieldStorage] implementation that use [SharedPreferences] as storage
  */
-class FieldStorageSharedPreference(private val context: Context) : FieldStorage() {
+class FieldStorageSharedPreference(
+    private val context: Context,
+    val storageName: String
+) : FieldStorage() {
 
-
-    override fun get(storageName: String, key: String): Any? {
-        return getSP(storageName).all[key]
+    override fun get(key: String): Any? {
+        return getSP().all[key]
     }
 
-    override fun clear(storageName: String) {
-        getSP(storageName)
+    override fun clear() {
+        getSP()
             .edit()
             .clear()
             .apply()
     }
 
-    override fun put(storageName: String, key: String, value: Any) {
-        val editor = getSP(storageName).edit()
+    override fun put(key: String, value: Any) {
+        val editor = getSP().edit()
         putValueToEditor(editor, key, value)
         editor.apply()
     }
 
-    override fun putAll(storageName: String, from: Map<String, Any>) {
-        val editor = getSP(storageName).edit()
+    override fun putAll(from: Map<String, Any>) {
+        val editor = getSP().edit()
         for (entry in from.entries) {
             putValueToEditor(editor, entry.key, entry.value)
         }
         editor.apply()
     }
 
-    override fun remove(storageName: String, key: String) {
-        getSP(storageName)
+    override fun remove(key: String) {
+        getSP()
             .edit()
             .remove(key)
             .apply()
     }
 
-    override fun containsKey(storageName: String, key: String): Boolean {
-        return getSP(storageName).contains(key)
+    override fun containsKey(key: String): Boolean {
+        return getSP().contains(key)
     }
 
-    override fun getAll(storageName: String): Map<String, Any> {
+    override fun getAll(): Map<String, Any> {
         val all = mutableMapOf<String, Any>()
-        getSP(storageName).all.toMutableMap().forEach { entry ->
+        getSP().all.toMutableMap().forEach { entry ->
             entry.value?.let { value ->
                 all[entry.key] = value
             }
@@ -57,7 +59,7 @@ class FieldStorageSharedPreference(private val context: Context) : FieldStorage(
         return all
     }
 
-    private fun getSP(storageName: String): SharedPreferences = context.getSharedPreferences(storageName, MODE_PRIVATE)
+    private fun getSP(): SharedPreferences = context.getSharedPreferences(storageName, MODE_PRIVATE)
 
     private fun putValueToEditor(editor: SharedPreferences.Editor, key: String, value: Any) {
         when (value) {

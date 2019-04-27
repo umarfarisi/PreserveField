@@ -5,24 +5,13 @@ import com.umarfarisi.preservefield.storage.FieldStorageUtils
 
 /**
  * Class for helping to save fields from Activity or Fragment
- * @param storageName name of storage that identified the storage
  * @param fieldStorage the storage for saving fields
  */
 class PreserveField @JvmOverloads constructor(
-    private val storageName: String,
     val fieldStorage: FieldStorage = FieldStorageUtils.getDefaultFS()
 ) {
 
     private val fieldHolder: MutableMap<String, Any> = mutableMapOf()
-    private val fileManagementStorage = FieldStorageUtils.getDefaultFileManagementStorage()
-
-    init {
-        fileManagementStorage?.put(
-            FieldStorageUtils.FILE_MANAGEMENT_STORAGE_FILE,
-            storageName,
-            fieldStorage::class.java.name
-        )
-    }
 
     /**
      * Put a field which want to be saved. This function won't save your field, this function just prepare field
@@ -52,7 +41,7 @@ class PreserveField @JvmOverloads constructor(
      * You have to call this function after you put your class field by those function ([putField] or [putFields] )
      */
     fun save() {
-        fieldStorage.putAll(storageName, fieldHolder)
+        fieldStorage.putAll(fieldHolder)
         fieldHolder.clear()
     }
 
@@ -66,7 +55,7 @@ class PreserveField @JvmOverloads constructor(
      * checking if the bundle from that function is null or not. If null it means your saved field is not valid anymore.
      */
     fun clearDataAndGetFields(isSavedValueValid: Boolean): Getter {
-        val fields: Map<String, Any> = if (isSavedValueValid) fieldStorage.getAll(storageName) else emptyMap()
+        val fields: Map<String, Any> = if (isSavedValueValid) fieldStorage.getAll() else emptyMap()
         clear()
         return Getter(fields)
     }
@@ -75,7 +64,7 @@ class PreserveField @JvmOverloads constructor(
      * Clear all saved field
      */
     fun clear() {
-        fieldStorage.clear(storageName)
+        fieldStorage.clear()
     }
 
     /**
