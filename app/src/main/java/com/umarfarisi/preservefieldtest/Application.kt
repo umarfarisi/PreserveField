@@ -19,6 +19,8 @@ class Application : Application() {
                 FIELD_STORAGE_SHARED_PREFERENCE_STORAGE_NAME
             )
         )
+        // clear all previous data
+        FieldStorageUtils.getDefaultFS().clear()
     }
 
 }
