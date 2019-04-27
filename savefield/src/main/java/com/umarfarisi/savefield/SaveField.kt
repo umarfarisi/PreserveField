@@ -9,6 +9,15 @@ class SaveField @JvmOverloads constructor(
 ) {
 
     private val fieldHolder: MutableMap<String, Any> = mutableMapOf()
+    private val fileManagementStorage = FieldStorageUtils.getDefaultFileManagementStorage()
+
+    init {
+        fileManagementStorage?.put(
+            FieldStorageUtils.FILE_MANAGEMENT_STORAGE_FILE,
+            storageName,
+            fieldStorage::class.java.name
+        )
+    }
 
     fun putField(fieldName: String, fieldValue: Any): SaveField {
         fieldHolder[fieldName] = fieldValue

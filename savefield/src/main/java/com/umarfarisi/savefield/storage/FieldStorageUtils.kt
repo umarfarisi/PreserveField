@@ -1,12 +1,13 @@
 package com.umarfarisi.savefield.storage
 
-import java.lang.IllegalStateException
-
 class FieldStorageUtils {
 
     var defaultFieldStorage: FieldStorage? = null
+    var defaultFileManagementStorage: FieldStorage? = null
 
     companion object {
+
+        const val FILE_MANAGEMENT_STORAGE_FILE: String = "FILE_MANAGEMENT_STORAGE_FILE"
 
         private val instances: FieldStorageUtils = FieldStorageUtils()
 
@@ -17,6 +18,14 @@ class FieldStorageUtils {
 
         fun setDefaultFS(fieldStorage: FieldStorage) {
             instances.defaultFieldStorage = fieldStorage
+        }
+
+        fun setDefaultFileManagementStorage(fieldStorage: FieldStorage) {
+            instances.defaultFileManagementStorage = fieldStorage
+        }
+
+        fun getDefaultFileManagementStorage(): FieldStorage? {
+            return instances.defaultFieldStorage
         }
 
     }
