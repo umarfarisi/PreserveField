@@ -5,6 +5,9 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import java.lang.IllegalStateException
 
+/**
+ * A [FieldStorage] implementation that use [SharedPreferences] as storage
+ */
 class FieldStorageSharedPreference(private val context: Context) : FieldStorage() {
 
 
