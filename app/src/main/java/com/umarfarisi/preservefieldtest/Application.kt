@@ -1,8 +1,8 @@
-package com.umarfarisi.savefieldtest
+package com.umarfarisi.preservefieldtest
 
 import android.app.Application
-import com.umarfarisi.savefield.storage.FieldStorageSharedPreference
-import com.umarfarisi.savefield.storage.FieldStorageUtils
+import com.umarfarisi.preservefield.storage.FieldStorageSharedPreference
+import com.umarfarisi.preservefield.storage.FieldStorageUtils
 
 class Application : Application() {
 

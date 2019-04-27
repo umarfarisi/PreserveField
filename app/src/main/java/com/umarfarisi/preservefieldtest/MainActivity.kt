@@ -1,14 +1,14 @@
-package com.umarfarisi.savefieldtest
+package com.umarfarisi.preservefieldtest
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.umarfarisi.savefield.SaveField
+import com.umarfarisi.preservefield.PreserveField
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val saveField: SaveField = SaveField(javaClass.simpleName)
+    val preserveField: PreserveField = PreserveField(javaClass.simpleName)
 
     var data: String? = null
 
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        data = saveField.clearDataAndGetFields(savedInstanceState != null).get("data", data)
+        data = preserveField.clearDataAndGetFields(savedInstanceState != null).get("data", data)
 
         data?.let(tvText::setText)
 
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         data?.let {
-            saveField
+            preserveField
                 .putField("data", it)
                 .save()
         }

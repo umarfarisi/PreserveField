@@ -1,14 +1,14 @@
-package com.umarfarisi.savefield
+package com.umarfarisi.preservefield
 
-import com.umarfarisi.savefield.storage.FieldStorage
-import com.umarfarisi.savefield.storage.FieldStorageUtils
+import com.umarfarisi.preservefield.storage.FieldStorage
+import com.umarfarisi.preservefield.storage.FieldStorageUtils
 
 /**
  * Class for helping to save fields from Activity or Fragment
  * @param storageName name of storage that identified the storage
  * @param fieldStorage the storage for saving fields
  */
-class SaveField @JvmOverloads constructor(
+class PreserveField @JvmOverloads constructor(
     private val storageName: String,
     val fieldStorage: FieldStorage = FieldStorageUtils.getDefaultFS()
 ) {
@@ -31,7 +31,7 @@ class SaveField @JvmOverloads constructor(
      * @param fieldName name of field
      * @param fieldValue value of that field, [fieldName]
      */
-    fun putField(fieldName: String, fieldValue: Any): SaveField {
+    fun putField(fieldName: String, fieldValue: Any): PreserveField {
         fieldHolder[fieldName] = fieldValue
         return this
     }
@@ -42,7 +42,7 @@ class SaveField @JvmOverloads constructor(
      * you must call [save] function for saving those fields.
      * @param fields a key-value pair, key is a field's name and value is a field's value
      */
-    fun putFields(fields: Map<String, Any>): SaveField {
+    fun putFields(fields: Map<String, Any>): PreserveField {
         fieldHolder.putAll(fields)
         return this
     }
@@ -79,7 +79,7 @@ class SaveField @JvmOverloads constructor(
     }
 
     /**
-     * Helper class to support [SaveField] in retrieving the saved fields.
+     * Helper class to support [PreserveField] in retrieving the saved fields.
      */
     class Getter constructor(private val fields: Map<String, Any>) {
         fun <V> get(fieldName: String, defaultValue: V): V {
